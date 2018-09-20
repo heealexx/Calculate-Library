@@ -152,11 +152,46 @@ public class Calculate {
 		double num2 = num * 100;
 		int num3 = (int) num2;
 		if ((num2-num3) >= .5) {
-			double num4 = (double) num3 / 100;
-			return (num4 + .01);
+			return (num3 / 100.0) + .01;
 		}else {
 			return ((double) num3) / 100;
 		}
 		
 	}
+	
+	//returns a number to a certain exponent
+	public static double exponent (double base, int exp) {
+		
+		double ans = base;
+		for (int i = 1; i < exp; i++) {
+			ans *= base;
+		}
+		return ans;
+		
+	}
+	
+	public static int factorial (int num) {
+		
+		int ans = 1;
+		for (int i = 1; i <= num; i++) {
+			ans *= i;
+		}
+		return ans;
+		
+	}
+	
+	public static boolean isPrime (int num) {
+		
+		for (int i = 1; i < num; i++) {
+			if (Calculate.isDivisibleBy(num, i) == true) {
+				return false;
+				break;
+			}else {
+				return true;
+			}
+		}
+		
+		
+	}
+	
 }

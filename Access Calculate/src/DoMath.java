@@ -15,7 +15,9 @@ public class DoMath {
 		System.out.println(Calculate.foil(2, 3, 6, -7, "n"));
 		System.out.println(Calculate.isDivisibleBy(8, 5));
 		System.out.println(Calculate.absValue(-6));
-		System.out.println(Calculate.round2(200.5645));
+		System.out.println(Calculate.round2(-200.5645));
+		System.out.println(Calculate.exponent(2, 4));
+		System.out.println(Calculate.factorial(4));
 		
 	}
 
