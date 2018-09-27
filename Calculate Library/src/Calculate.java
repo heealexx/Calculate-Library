@@ -1,6 +1,6 @@
 /* Contains various methods that do math and calculations.
  * @author: Alex He
- * @version: 9/19/2018
+ * @version: 9/21/2018
  */
 
 public class Calculate {
@@ -63,7 +63,7 @@ public class Calculate {
 	public static double discriminant (double a, double b, double c) {
 		
 		double ansDisc;
-		ansDisc = (-b - (4 * a * c)) / (2 * a);
+		ansDisc = (b *b) - (4 * a * c);
 		return ansDisc;
 		
 	}
@@ -78,7 +78,7 @@ public class Calculate {
 	//returns a string of a mixed number from two integers
 	public static String toMixedNum (int numer, int denom) {
 		
-		return ((numer / denom) + " " + (numer % denom) + "/" + denom);
+		return ((numer / denom) + "_" + (numer % denom) + "/" + denom);
 		
 	}
 	
@@ -92,6 +92,7 @@ public class Calculate {
 	//returns a boolean based on if int a is divisible by int b
 	public static boolean isDivisibleBy (int a, int b) {
 		
+		if  (b == 0) throw new IllegalArgumentException ("divisor must not be 0");
 		if (a % b == 0) {
 			return true;
 		}else {
@@ -146,32 +147,41 @@ public class Calculate {
 		
 	}
 	
-	//returns the rounded number of a double to the nearest hundredths place
-	public static double round2 (double num) {
+	//returns the rounded number of a double to the nearest hundredth place
+	public static double round2 (double num1) {
 	
-		double num2 = num * 100;
-		int num3 = (int) num2;
-		if ((num2-num3) >= .5) {
-			return (num3 / 100.0) + .01;
+		if (num1 >= 0) {
+	        double num2 = (num1 + .005) * 100;
+	        double num3 = (int) num2;
+	        return num3 / 100;
 		}else {
-			return ((double) num3) / 100;
+			double num2 = (num1 - .005) * 100;
+			double num3 = (int) num2;
+			return num3 / 100;
 		}
-		
+
 	}
 	
 	//returns a number to a certain exponent
 	public static double exponent (double base, int exp) {
 		
+		if (exp <= 0) throw new IllegalArgumentException ("exponent can not be negative");
 		double ans = base;
-		for (int i = 1; i < exp; i++) {
-			ans *= base;
+		if (exp == 0) {
+			return 1.0;
+		}else {
+			for (int i = 1; i < exp; i++) {
+				ans *= base;
+			}
+			return ans;
 		}
-		return ans;
-		
+
 	}
 	
+	//returns the factorial of an integer
 	public static int factorial (int num) {
 		
+		if (num < 0) throw new IllegalArgumentException ("factorial number may not be negative");
 		int ans = 1;
 		for (int i = 1; i <= num; i++) {
 			ans *= i;
@@ -179,18 +189,62 @@ public class Calculate {
 		return ans;
 		
 	}
-	
+
+	//returns a boolean determined by if a number is an integer or not
 	public static boolean isPrime (int num) {
 		
-		for (int i = 1; i < num; i++) {
+		boolean ans = true;
+		for (int i = num - 1; i > 1; i--) {
 			if (Calculate.isDivisibleBy(num, i) == true) {
-				return false;
-				break;
-			}else {
-				return true;
+				ans = false;
+			}else if (ans != false) {
+				ans = true;
 			}
 		}
+		return ans;
 		
+	}
+	
+	//returns the greatest common factor between two integers
+	public static int gcf (int num1, int num2) {
+		
+		int base = 1;
+		for (int i = (int) Calculate.min(num1, num2); i > 1; i--) {
+			if (num1 % i == 0 && num2 % i == 0) {
+				if (i >= base) {
+					base = i;
+				}
+			}
+		}
+		return base;
+		
+	}
+	
+	//returns the approximation square root of a number
+	public static double sqrt (double num) {
+		
+		if (num < 0) throw new IllegalArgumentException ("can not find square root of negative number");
+		double ans = num / 6;
+		while ((Calculate.absValue((ans * ans) - num)) >= .005) {
+			ans = ((num/ans) + ans)/2;
+		}
+		return Calculate.round2(ans);
+		
+	}
+	
+	//returns the roots of the coefficients of the quadratic formula
+	public static String quadForm (int a, int b, int c) {
+		
+		if (a == 0) throw new IllegalArgumentException ("a can not be 0");
+		double ans1 = (-b + Calculate.sqrt(Calculate.discriminant(a, b, c))) / (2 * a);
+		double ans2 = (-b - Calculate.sqrt(Calculate.discriminant(a, b, c))) / (2 * a);
+		if (ans1 == 0 && ans2 == 0) {
+			return "no real roots";
+		}else if (ans1 == ans2) {
+			return Calculate.round2(ans1) + "";
+		}else {
+			return Calculate.round2(ans1) + " and " + Calculate.round2(ans2);
+		}
 		
 	}
 	

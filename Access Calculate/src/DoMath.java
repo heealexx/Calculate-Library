@@ -13,11 +13,15 @@ public class DoMath {
 		System.out.println(Calculate.toImproperFraction(2, 5, 6));
 		System.out.println(Calculate.toMixedNum(7, 2));
 		System.out.println(Calculate.foil(2, 3, 6, -7, "n"));
-		System.out.println(Calculate.isDivisibleBy(8, 5));
+		System.out.println(Calculate.isDivisibleBy(0, 5));
 		System.out.println(Calculate.absValue(-6));
-		System.out.println(Calculate.round2(-200.5645));
-		System.out.println(Calculate.exponent(2, 4));
-		System.out.println(Calculate.factorial(4));
+		System.out.println(Calculate.round2(-200.565));
+		System.out.println(Calculate.exponent(2, 1));
+		System.out.println(Calculate.factorial(0));
+		System.out.println(Calculate.isPrime(1));
+		System.out.println(Calculate.gcf(42,27));
+		System.out.println(Calculate.sqrt(10.0));
+		System.out.println(Calculate.quadForm(3, 4, -1));
 		
 	}
 
